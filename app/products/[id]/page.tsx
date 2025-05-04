@@ -1,4 +1,7 @@
+'use client';
+
 import { Product } from "@/types";
+import { use, useEffect, useState } from "react";
 // import { GetStaticPaths, GetStaticProps } from "next";
 // import { useRouter } from "next/router";
 
@@ -28,19 +31,33 @@ import { Product } from "@/types";
 //     };
 // }
 
-async function getProduct(id: string): Promise<Product> {
+async function getProduct(id: string) {
+    console.log(`Buscando pela URL: "${`http://localhost:3000/products?id=${id}`}"`);
+
     const res = await fetch(`http://localhost:3000/products?id=${id}`);
 
-    return res.json();
+    return await res.json();
 }
 
-export default async function ProductPage({ params: { id } }: { params: { id: string } }) {
-    const product = await getProduct(id);
+export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+    const productId = use(params).id;
+    const [product, setProduct] = useState<Product | null>(null);
+    const [load, setLoad] = useState(!0);
+
+    useEffect(() => {
+        (async () => {
+            const p = await getProduct(productId);
+
+            setProduct(p);
+            setLoad(!1);
+
+            console.log(p);
+        })();
+    }, []);
 
     return (
         <div>Opa
-            <h1>{product.name}</h1>
-            <p>{product.desc}</p>
+            {!load ? ((product && product.id) ? <h1>{product.name}</h1> : <h1>SEM PRODUTO</h1>) : <h1>CARREGANDO PRODUTO</h1>}
         </div>
     );
 }
