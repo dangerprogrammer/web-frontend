@@ -1,6 +1,6 @@
 .input-box {
     position: relative;
-    padding: .65em 2em;
+    padding: .65em .5em;
 
     input, select {
         font-size: 1.1em;
@@ -25,7 +25,7 @@
         padding: .5em;
         translate: 0 -50%;
         font-size: 1.2em;
-        right: 2em;
+        right: .75em;
         border-radius: 50%;
         position: absolute;
         cursor: pointer;

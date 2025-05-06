@@ -4,8 +4,8 @@ body {
     justify-content: center;
 }
 
-.register-container {
-    padding: 2em 1em;
+.login-container {
+    padding: 2em 3em;
     border-radius: .35em;
     border: .15em solid #eee2;
     background-color: #151515;
@@ -32,11 +32,8 @@ body {
     }
 
     .main-content {
-        // display: flex;
-        // flex-direction: column;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
         padding: 1em 0;
+        width: 100%;
     }
 
     .error-msg {
@@ -44,25 +41,12 @@ body {
         font-weight: bolder;
     }
 
-    .policity-terms {
-        user-select: none;
-        display: flex;
-        align-items: center;
-        gap: .5em;
-        word-break: keep-all;
-
-        label {
-            display: flex;
-            gap: .5em;
-        }
-    }
-
     a {
         font-weight: bolder;
         color: var(--primary-color);
     }
 
-    .submit-register {
+    .submit-login {
         margin-top: .65em;
         margin-bottom: 1.2em;
         background-color: var(--primary-color);

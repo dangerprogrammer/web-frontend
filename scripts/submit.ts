@@ -1,13 +1,24 @@
+import { redirect } from 'next/navigation'
 import { Dispatch, MouseEvent, SetStateAction } from "react";
 
 export async function submitUser(ev: MouseEvent, formContent: any, initialFormContent: any, setErrorMsg: Dispatch<SetStateAction<any>>) {
+    function formHas(input: string) {
+        return formKeys.find(e => e == input);
+    }
+
     const formKeys = Object.keys(formContent);
 
-    for (let key of formKeys) if (formContent[key] == initialFormContent[key]) return setErrorMsg('Preencha todos os campos!');
+    setErrorMsg(undefined);
     ev.preventDefault();
+    for (let key of formKeys) if (formContent[key] == initialFormContent[key]) return setErrorMsg('Preencha todos os campos!');
 
     if ((formHas('password') && formHas('confirmPassword')) &&
         formContent['password'] != formContent['confirmPassword']) return setErrorMsg('As senhas não coincidem!');
+
+    const userRes = await fetch(`http://localhost:3000/users?email=${formContent.email}`);
+    const hasUser = await userRes.json();
+
+    if (JSON.stringify(hasUser) != "{}") return setErrorMsg('Já existe um usuário com este e-mail!');
 
     setErrorMsg(undefined);
 
@@ -27,11 +38,14 @@ export async function submitUser(ev: MouseEvent, formContent: any, initialFormCo
         },
         body: JSON.stringify(createUserPayload)
     });
-    const user = await res.json();
+    const tokenRes = await res.json();
 
-    console.log(user);
+    console.log(tokenRes);
+    const token = {
+        access_token: tokenRes.hash,
+        refresh_token: tokenRes.hashRefreshToken
+    };
+    localStorage.setItem("token", JSON.stringify(token));
 
-    function formHas(input: string) {
-        return formKeys.find(e => e == input);
-    }
+    redirect('/');
 }

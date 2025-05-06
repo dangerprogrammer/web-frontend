@@ -2,7 +2,7 @@
 
 import { InputBox } from '@/components';
 import './page.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { submitUser } from '@/scripts';
 
 export default function RegisterPage() {
@@ -14,10 +14,14 @@ export default function RegisterPage() {
         confirmPassword: '',
         location: '',
         phone: '',
-        iAm: ''
+        iAm: '',
+        validTerms: !1
     };
     const [formContent, setFormContent] = useState(initialFormContent);
     const [errorMsg, setErrorMsg] = useState<string>();
+    const [validTerms, setValidTerms] = useState(!1);
+
+    useEffect(() => setFormContent((prev: any) => ({ ...prev, validTerms })), [validTerms]);
 
     return <main className='register-container'>
         <section className='container-header'>
@@ -35,9 +39,15 @@ export default function RegisterPage() {
             <InputBox formChange={setFormContent} change='confirmPassword' id='confirm-password' placeholder="Confirme sua senha"
                 visiblePassword={visible} setVisible={setVisible} isPassword confirmPassword />
         </form>
+        <section className='policity-terms'>
+            <input type='checkbox' id='terms' onChange={({ target }) => setValidTerms(target.checked)} />
+            <label htmlFor='terms'>Concordo com os <a href="#" className='policity-terms'>Termos e Política</a></label>
+        </section>
         {errorMsg ? <span className='error-msg'>{errorMsg}</span> : undefined}
         <section className='footer-content'>
-            <button type='submit' form='register-form' onClick={ev => submitUser(ev, formContent, initialFormContent, setErrorMsg)}>Cadastrar</button>
+            <button type='submit' form='register-form' className='submit-register'
+                onClick={ev => submitUser(ev, formContent, initialFormContent, setErrorMsg)}>Cadastrar</button>
         </section>
+        <span>Já possui uma conta? <a href="/login">Faça login</a></span>
     </main>
 }
