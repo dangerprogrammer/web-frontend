@@ -1,9 +1,27 @@
+'use client';
+
 import Link from 'next/link';
 import './page.scss';
 import CopyrightFooter from '@/components/copyright-footer/copy-footer';
 import { IoCamera } from "react-icons/io5";
+import { submitProduct } from '@/scripts/submit-product';
+import { useState } from 'react';
 
 export default function DonatePage() {
+    const initialFormContent = {
+        name: '',
+        estimatedPrice: '',
+        category: '',
+        condition: '',
+        desc: '',
+        images: ''
+    };
+    const [formContent, setFormContent] = useState(initialFormContent);
+    const [errorMsg, setErrorMsg] = useState<string>();
+    const [estimated, setEstimated] = useState<string>((0).toLocaleString("pt-BR", {
+        style: 'currency', currency: 'BRL'
+    }));
+
     return <main className='donate-page'>
         <header className='donate-header'>
             <article className='header-content'>
@@ -29,15 +47,27 @@ export default function DonatePage() {
                     <form id='donate-form'>
                         <div className='input-divisor'>
                             <label className='input-label' htmlFor="product-name">Título do Produto</label>
-                            <input type="text" id='product-name' required placeholder='Ex: Placa Mãe ASUS H110M-K' />
+                            <input
+                            onChange={ev => setFormContent((prev: any) => ({ ...prev, name: ev.target.value }))}
+                            type="text" id='product-name' required placeholder='Ex: Placa Mãe ASUS H110M-K' />
                         </div>
                         <div className='input-divisor'>
                             <label className='input-label' htmlFor="product-estimated">Preço estimado</label>
-                            <input type="text" id='product-estimated' required placeholder='Diga o valor que acredita que este produto vale' />
+                            <input
+                            onChange={ev => {
+                                setFormContent((prev: any) => ({ ...prev, estimatedPrice: ev.target.value }));
+                                setEstimated((+ev.target.value).toLocaleString("pt-BR", {
+                                    style: 'currency', currency: 'BRL'
+                                }));
+                            }}
+                            type="number" step="0.01" id='product-estimated' required placeholder='Diga o valor que acredita que este produto vale' />
+                            <span id="estimated-price">{estimated}</span>
                         </div>
                         <div className='input-divisor'>
                             <label className='input-label' htmlFor="product-category">Categoria</label>
-                            <select id='product-category' required>
+                            <select
+                            onChange={ev => setFormContent((prev: any) => ({ ...prev, category: ev.target.value }))}
+                            id='product-category' required>
                                 <option value="">Selecione uma categoria</option>
                                 <option value="componentes">Componentes Eletrônicos</option>
                                 <option value="eletronicos">Eletrônicos Completos</option>
@@ -49,7 +79,9 @@ export default function DonatePage() {
                         </div>
                         <div className='input-divisor'>
                             <label className='input-label' htmlFor="product-condition">Condição</label>
-                            <select id='product-condition' required>
+                            <select
+                            onChange={ev => setFormContent((prev: any) => ({ ...prev, condition: ev.target.value }))}
+                            id='product-condition' required>
                                 <option value="">Selecione a condição do produto</option>
                                 <option value="usado-bom">Usado em bom estado</option>
                                 <option value="usado-regular">Usado regular</option>
@@ -58,7 +90,9 @@ export default function DonatePage() {
                         </div>
                         <div className='input-divisor'>
                             <label className='input-label' htmlFor="product-desc">Descrição detalhada</label>
-                            <textarea id='product-desc' required placeholder='Descreva o item, incluindo marca, modelo, estado de conservação, defeitos (se houver)...' />
+                            <textarea
+                            onChange={ev => setFormContent((prev: any) => ({ ...prev, desc: ev.target.value }))}
+                            id='product-desc' required placeholder='Descreva o item, incluindo marca, modelo, estado de conservação, defeitos (se houver)...' />
                         </div>
                         <div className='input-divisor'>
                             <label className='input-label'>Fotos do Produto (máximo de 8 imagens)</label>
@@ -69,11 +103,14 @@ export default function DonatePage() {
                                         <span>Clique para adicionar fotos</span>
                                     </span>
                                 </label>
-                                <input type='file' id='donate-images' accept="image/*" required multiple hidden />
+                                <input
+                                onChange={ev => setFormContent((prev: any) => ({ ...prev, images: ev.target.value }))}
+                                type='file' id='donate-images' accept="image/*" required multiple hidden />
                             </div>
                         </div>
                     </form>
-                    <button type='submit' form='donate-form' className='submit-donate'>Cadastrar Doação</button>
+                    {errorMsg ? <span className='error-msg'>{errorMsg}</span> : undefined}
+                    <button type='submit' form='donate-form' className='submit-donate' onClick={ev => submitProduct(ev, formContent, initialFormContent, setErrorMsg)}>Cadastrar Doação</button>
                 </section>
                 <section className='donate-table'>
                     <main className='table-content'>
