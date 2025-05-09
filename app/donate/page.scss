@@ -1,7 +1,10 @@
+@use '../globals.scss';
+
 .donate-page {
     position: relative;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     font-family: Poppins;
 
     .donate-header {
@@ -11,8 +14,8 @@
         width: 100%;
         display: flex;
         justify-content: center;
-        background-color: #222;
-        border-bottom: 2px solid #aaa4;
+        background-color: #15151a;
+        border-bottom: .12rem solid #333;
 
         .header-content {
             max-width: 64rem;
@@ -20,13 +23,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 1.2em;
+            font-size: 1.1em;
 
             .header-title {
                 font-weight: 600;
 
                 .title-logo {
-                    color: var(--primary-color);
+                    color: globals.$primary-color;
                     font-weight: 700;
                 }
             }
@@ -37,26 +40,196 @@
                 .link-header {
                     font-weight: 600;
                     list-style: none;
-                    padding: .2em .5em;
+                    margin: .2em .75em;
                     transition: color .2s;
 
                     &.active {
                         pointer-events: none;
-                        color: var(--primary-color);
+                        color: globals.$primary-color;
                     }
 
                     &:hover {
-                        color: var(--primary-color);
+                        color: globals.$primary-color;
                     }
                 }
             }
         }
     }
 
-    .main-content {
+    .donate-container {
+        position: relative;
         flex-grow: 1;
-        min-height: 100%;
-        padding: 1em;
-        background-color: red;
+        display: flex;
+        justify-content: center;
+        background-color: #222228;
+
+        .main-content {
+            position: relative;
+            padding: 1em;
+            flex-grow: 1;
+            width: 100%;
+            max-width: 72rem;
+            gap: 1.5em;
+            // display: grid;
+            // grid-template-columns: 3fr 4fr;
+            display: flex;
+
+            .form-donate {
+                flex-grow: 1;
+            }
+
+            .donate-table {
+                max-width: 55%;
+                display: flex;
+                position: relative;
+
+                .table-content {
+                    // background-color: red;
+                    position: sticky;
+                    top: 0;
+                    display: flex;
+                    flex-direction: column;
+
+                    .table-desc {
+                        padding: 2rem;
+                        opacity: .7;
+                        font-size: .9em;
+                    }
+
+                    .points-table {
+                        border-collapse: collapse;
+                        margin-inline: 2rem;
+
+                        th {
+                            background-color: #222228;
+                            color: #ee7410;
+                        }
+
+                        td {
+                            color: #d1d5db;
+                        }
+
+                        th,
+                        td {
+                            padding: 10px;
+                            text-align: left;
+                            border-bottom: 1px solid #eef3;
+                        }
+                    }
+
+                    .score-points {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 1rem;
+                        margin: 1rem;
+                        margin-top: 0;
+                        background-color: #222228;
+                        border-radius: .5em;
+                        font-size: 1.15em;
+
+                        .score-desc {
+                            opacity: .8;
+                            font-size: .9em;
+                            user-select: none;
+                        }
+                    }
+                }
+            }
+
+            >* {
+                background-color: #2c2c31;
+                box-shadow: 0 .3em 1em #1118;
+                border-radius: 1em;
+                flex-shrink: 0;
+                display: flex;
+                flex-direction: column;
+
+                .donate-title {
+                    font-size: 1.5em;
+                    text-align: center;
+                    padding-block: 1em .5em;
+                    color: globals.$primary-color;
+                }
+
+                .line {
+                    height: .12rem;
+                    margin-inline: 2rem;
+                    background-color: #eef3;
+                }
+
+                .input-divisor {
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5em;
+                    padding: 1em 2em;
+
+                    .input-label {
+                        font-weight: 600;
+                    }
+
+                    input,
+                    textarea,
+                    select {
+                        font-family: inherit;
+                        outline: none !important;
+                        border-radius: .5em;
+                        padding: 1em;
+                        background-color: #222228;
+                        border: .05rem solid #eef3;
+                        transition: border-color .2s;
+
+                        &:focus,
+                        &:active {
+                            border-color: globals.$primary-color;
+                        }
+                    }
+
+                    .images-list {
+                        .label-files {
+                            display: flex;
+                            position: relative;
+
+                            .files-container {
+                                padding: 2.5em;
+                                width: 100%;
+                                border-radius: 1em;
+                                border: .15rem dotted #eee3;
+                                transition: border-color .2s;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                justify-content: center;
+
+                                span {
+                                    opacity: .65;
+                                }
+
+                                &:hover {
+                                    border-color: globals.$primary-color;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .submit-donate {
+                    font-size: 1.2em;
+                    padding: 1em;
+                    border-radius: .5em;
+                    cursor: pointer;
+                    border: none;
+                    margin: 1em;
+                    font-weight: 600;
+                    background-color: globals.$primary-color;
+                    transition: background-color .2s;
+
+                    &:hover {
+                        background-color: lighten(globals.$primary-color, 5%);
+                    }
+                }
+            }
+        }
     }
 }
