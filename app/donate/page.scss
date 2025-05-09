@@ -1,0 +1,25 @@
+.donate-page {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    .donate-header {
+        position: sticky;
+        top: 0;
+        padding: 1em;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border-bottom: 2px solid red;
+
+        .header-content {
+            max-width: 64rem;
+            width: 100%;
+            background-color: blue;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.4em;
+        }
+    }
+}

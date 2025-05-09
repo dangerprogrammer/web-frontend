@@ -2,94 +2,89 @@ import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  return <>
+  <header>
+    <div className="header-container">
+      <h1><span className="highlight">E-Eco</span></h1>
+      <div className="header-right">
+        <i className="bi bi-search"></i>
+        {/* <input type="text" id="filter-input" placeholder="Pesquisar produtos..." oninput="filterProducts()"> */}
+        <nav>
+          <ul>
+            {/* <li><button onClick="filterCategory('componentes')">Componentes</button></li>
+            <li><button onClick="filterCategory('eletronicos')">Doar</button></li>
+            <li><button onClick="filterCategory('equipamentos')">Perfil</button></li>
+            <li><button onClick="window.location.href='login.html'">Entrar</button></li> */}
+          </ul>
+        </nav>
+      </div>
     </div>
-  );
+  </header>
+
+  {/* Main content */}
+  <main>
+    <section className="hero">
+      <div className="hero-content">
+        <h2>Reduza, reuse, doe!</h2>
+        <p>Conectamos doadores de eletrônicos com pessoas que precisam de componentes, promovendo a sustentabilidade e o acesso à tecnologia.</p>
+        {/* <button onClick="window.location.href='doacao.html'">Quero Doar</button> */}
+      </div>
+    </section>
+
+    <section className="product-list" id="product-list">
+      <h2>Itens Disponíveis para Doação</h2>
+      <div className="products-grid">
+        {/* Produtos serão carregados aqui via JavaScript */}
+      </div>
+      <div>
+        {/* <button onClick="window.location.href='busca.html'">Ver todos os itens</button> */}
+      </div>
+    </section>
+
+    <section className="points-system">
+      <h2>Sistema de Pontos</h2>
+      <div className="points-info">
+        <div className="point-card">
+          <i className="bi bi-arrow-up-circle"></i>
+          <h3>Doe itens</h3>
+          <p>Ganhe pontos por cada doação realizada</p>
+        </div>
+        <div className="point-card">
+          <i className="bi bi-arrow-down-circle"></i>
+          <h3>Resgate itens</h3>
+          <p>Use seus pontos para obter componentes</p>
+        </div>
+        <div className="point-card">
+          <i className="bi bi-trophy"></i>
+          <h3>Benefícios</h3>
+          <p>Desbloqueie vantagens conforme sua pontuação</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div className="footer-content">
+      <div className="footer-logo">
+        <h3>E-Eco</h3>
+        <p>Reduzindo o lixo eletrônico através da reutilização</p>
+      </div>
+      <div className="footer-links">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="doacao.html">Como doar</a></li>
+          <li><a href="pontos.html">Sistema de pontos</a></li>
+          <li><a href="sobre.html">Sobre nós</a></li>
+        </ul>
+      </div>
+      <div className="footer-contact">
+        <h4>Contato</h4>
+        <p>contato@e-eco.org</p>
+        <p>(11) 98765-4321</p>
+      </div>
+    </div>
+    <p id="copyright">&copy; 2025 E-Eco from Facens</p>
+  </footer>
+  </>
 }
