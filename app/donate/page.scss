@@ -1,21 +1,19 @@
 @use '../globals.scss';
 
 .donate-page {
-    position: relative;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     font-family: Poppins;
 
     .donate-header {
-        position: sticky;
-        top: 0;
         padding: 2em 1em;
         width: 100%;
         display: flex;
         justify-content: center;
         background-color: #15151a;
         border-bottom: .12rem solid #333;
+        user-select: none;
 
         .header-content {
             max-width: 64rem;

@@ -9,8 +9,6 @@ export async function submitProduct(ev: MouseEvent, formContent: any, initialFor
     ev.preventDefault();
     for (let key of formKeys) if (formContent[key] == initialFormContent[key]) return setErrorMsg('Preencha todos os campos!');
 
-    console.log(formContent);
-
     const createProductPayload = {
         name: formContent.name,
         desc: formContent.desc,

@@ -1,0 +1,113 @@
+@use './globals.scss';
+
+.home-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .home-header {
+        position: sticky;
+        top: 0;
+        padding: 2em 1em;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background-color: #15151a;
+        border-bottom: .12rem solid #333;
+        user-select: none;
+
+        .header-content {
+            max-width: 64rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.1em;
+
+            .header-title {
+                font-weight: 600;
+                color: globals.$primary-color;
+            }
+
+            .links-list {
+                display: flex;
+                align-items: center;
+
+                .product-search {
+                    display: flex;
+                    position: relative;
+                    margin-right: 1em;
+
+                    label {
+                        top: 50%;
+                        translate: 0 -40%;
+                        right: .5em;
+                        pointer-events: none;
+                        position: absolute;
+                        color: globals.$primary-color;
+                    }
+
+                    .search-product {
+                        font-family: inherit;
+                        outline: none !important;
+                        border-radius: .5em;
+                        padding: 1em;
+                        background-color: #222228;
+                        border: .05rem solid #eef3;
+                        transition: border-color .2s;
+                    }
+                }
+
+                .link-header {
+                    font-weight: 600;
+                    list-style: none;
+                    margin: .2em .75em;
+                    transition: color .2s;
+
+                    &:hover {
+                        color: globals.$primary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .home-article {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2em;
+        align-items: center;
+        justify-content: center;
+        padding: 4em;
+        font-size: 1.4em;
+
+        > a {
+            background-color: globals.$primary-color;
+            padding: .5em 1em;
+            border-radius: .5em;
+        }
+    }
+
+    .main-article {
+        padding: 4em;
+        background-color: #15151a;
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+
+        .title-article {
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .main-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+        }
+    }
+
+    .info-article {
+        background-color: #222228;
+        padding: 4em;
+    }
+}
