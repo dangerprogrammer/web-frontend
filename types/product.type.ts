@@ -4,9 +4,9 @@ export type Product = {
     id: number;
     name: string;
     desc: string;
-    image: string;
-    categories: Category[];
+    images: string[];
+    category: Category;
     condition: Condition;
     location: string;
-    requiredPoints: number;
+    points: number;
 };

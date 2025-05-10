@@ -1,4 +1,88 @@
+@use '../../app/globals.scss';
+
 .item-product {
+    position: relative;
     display: flex;
     flex-direction: column;
+    background-color: #222228;
+    box-shadow: 0 .2em .8em #0005;
+    height: 100%;
+    width: 100%;
+    border-radius: 1em;
+    overflow: hidden;
+    cursor: pointer;
+    outline: 2px solid transparent;
+    transition: outline-color .2s;
+
+    &:hover {
+        outline-color: globals.$primary-color;
+    }
+
+    .image-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 3 / 2;
+        overflow: hidden;
+
+        .product-image {
+            pointer-events: none;
+            position: absolute;
+            height: 100%;
+            width: 100%;
+
+            &:not(&.shadow) {
+                object-fit: contain;
+                z-index: 1;
+            }
+
+            &.shadow {
+                object-fit: cover;
+                filter: blur(.5em);
+                scale: 1.1;
+            }
+        }
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        padding: 1em;
+
+        .product-title {
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .product-desc {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            color: #eef7;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+        }
+
+        .row {
+            opacity: .5;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .category {
+            position: relative;
+            margin-right: auto;
+            font-weight: 600;
+            font-size: 1em;
+            padding: .2em .35em;
+            border-radius: .3em;
+            color: #eefc;
+            background-color: #ddddff28;
+        }
+    }
 }

@@ -9,25 +9,26 @@ export async function submitProduct(ev: MouseEvent, formContent: any, initialFor
     ev.preventDefault();
     for (let key of formKeys) if (formContent[key] == initialFormContent[key]) return setErrorMsg('Preencha todos os campos!');
 
-    const createProductPayload = {
-        name: formContent.name,
-        desc: formContent.desc,
-        images: formContent.images,
-        category: formContent.category,
-        condition: formContent.condition,
-        location: loggedUser.location,
-        estimatedPrice: formContent.estimatedPrice,
-        points: formContent.points
-    };
+    const formData = new FormData();
 
-    const res = await fetch("http://localhost:3000/product", {
+    formData.append('name', formContent.name);
+    formData.append('desc', formContent.desc);
+    formData.append('category', formContent.category);
+    formData.append('condition', formContent.condition);
+    formData.append('location', loggedUser.location);
+    formData.append('estimatedPrice', formContent.estimatedPrice);
+    formData.append('points', formContent.points);
+
+    formContent.images.forEach((file: File) => formData.append('images', file));
+
+    const res = await fetch('http://localhost:3000/product', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
             'Authorization': `bearer ${token.access_token}`
         },
-        body: JSON.stringify(createProductPayload)
+        body: formData
     });
+
     const product: Product = await res.json();
 
     alert(`Produto "${product.name}" cadastrado com sucesso!`);

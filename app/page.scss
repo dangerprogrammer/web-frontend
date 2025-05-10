@@ -81,7 +81,7 @@
         padding: 4em;
         font-size: 1.4em;
 
-        > a {
+        >a {
             background-color: globals.$primary-color;
             padding: .5em 1em;
             border-radius: .5em;
@@ -89,25 +89,68 @@
     }
 
     .main-article {
-        padding: 4em;
+        padding: 4em max(4em, 5vw);
         background-color: #15151a;
         display: flex;
         flex-direction: column;
         gap: 2em;
 
-        .title-article {
-            font-size: 1.8em;
-            text-align: center;
-        }
-
         .main-products {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+            gap: 1em;
         }
+    }
+
+    .title-article {
+        font-size: 1.8em;
+        text-align: center;
     }
 
     .info-article {
         background-color: #222228;
         padding: 4em;
+        display: flex;
+        flex-direction: column;
+        gap: 3em;
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: center;
+            justify-content: center;
+            gap: 2em;
+            width: 100%;
+            max-width: 64rem;
+            margin-inline: auto;
+
+            .card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1em;
+                padding: 2em;
+                height: 100%;
+                background-color: #15151a;
+                border-radius: .5em;
+                outline: 2px solid transparent;
+                transition: translate .2s, outline-color .2s;
+
+                &:hover {
+                    translate: 0 -.5em;
+                    outline-color: globals.$primary-color;
+                }
+
+                .card-icon {
+                    font-size: 4em;
+                    color: globals.$primary-color;
+                }
+
+                .card-desc {
+                    opacity: .8;
+                    text-align: center;
+                }
+            }
+        }
     }
 }
