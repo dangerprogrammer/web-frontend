@@ -1,0 +1,160 @@
+@use '../../globals.scss';
+
+.product-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .product-header {
+        position: sticky;
+        top: 0;
+        padding: 2em 1em;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background-color: #15151a;
+        border-bottom: .12rem solid #333;
+        user-select: none;
+
+        .header-content {
+            max-width: 64rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.1em;
+
+            .header-title {
+                font-weight: 600;
+
+                .title-logo {
+                    color: globals.$primary-color;
+                    font-weight: 700;
+                }
+            }
+
+            .links-list {
+                display: flex;
+                align-items: center;
+
+                .product-search {
+                    display: flex;
+                    position: relative;
+                    margin-right: 1em;
+
+                    label {
+                        top: 50%;
+                        translate: 0 -40%;
+                        right: .5em;
+                        pointer-events: none;
+                        position: absolute;
+                        color: globals.$primary-color;
+                    }
+
+                    .search-product {
+                        font-family: inherit;
+                        outline: none !important;
+                        border-radius: .5em;
+                        padding: 1em;
+                        background-color: #222228;
+                        border: .05rem solid #eef3;
+                        transition: border-color .2s;
+                    }
+                }
+
+                .link-header {
+                    font-weight: 600;
+                    list-style: none;
+                    margin: .2em .75em;
+                    transition: color .2s;
+
+                    &:hover {
+                        color: globals.$primary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .product-container {
+        background-color: #222228;
+        flex-grow: 1;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+        justify-content: center;
+
+        .product-images {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .images-product {
+                margin-bottom: auto;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(4, 1fr);
+                gap: 1em;
+                align-items: center;
+                justify-content: center;
+                padding: 2em;
+                height: auto;
+                width: 100%;
+                grid-template-areas:
+                    "thumb  thumb  thumb  thumb"
+                    "thumb  thumb  thumb  thumb"
+                    "thumb  thumb  thumb  thumb";
+
+                img {
+                    pointer-events: none;
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
+
+                .thumbnail-image {
+                    grid-area: thumb;
+                    position: relative;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: .75em;
+                    overflow: hidden;
+                }
+
+                .product-image {
+                    cursor: pointer;
+                    position: relative;
+                    width: 100%;
+                    aspect-ratio: 1;
+                    border-radius: .5em;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+    .no-product {
+        .title {
+            font-size: 2em;
+            font-weight: 700;
+            text-align: center;
+        }
+    }
+
+    .no-product,
+    .loading {
+        background-color: #222228;
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .loading {
+        font-size: 1.4em;
+        font-weight: 600;
+    }
+}

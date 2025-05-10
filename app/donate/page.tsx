@@ -41,7 +41,7 @@ export default function DonatePage() {
       const loggedUser = await verifyUserToken();
 
       setLoggedUser(loggedUser);
-      if (!(loggedUser as User).id) redirect('/login');
+      if (!(loggedUser && loggedUser.id)) redirect('/login');
     })();
   }, []);
 

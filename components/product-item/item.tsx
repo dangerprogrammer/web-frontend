@@ -1,7 +1,6 @@
 import { Product } from '@/types';
 import './item.scss';
 import { capitalize } from '@/scripts';
-import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
 export function ProductItem({ product }: { product: Product }) {

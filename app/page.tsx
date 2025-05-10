@@ -10,7 +10,7 @@ import { ProductItem } from '@/components/product-item/item';
 import CopyrightFooter from '@/components/copyright-footer/copy-footer';
 
 export default function Home() {
-  const [loggedUser, setLoggedUser] = useState<boolean | User>(!1);
+  const [loggedUser, setLoggedUser] = useState<false | User>(!1);
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -43,7 +43,7 @@ export default function Home() {
           <li className='link-header'>
             <Link href={'/donate'}>Doar</Link>
           </li>
-          {(loggedUser as User).id ? <li className='link-header'>
+          {(loggedUser && loggedUser.id) ? <li className='link-header'>
             <Link href={'/profile'}>Perfil</Link>
           </li> : <li className='link-header'>
             <Link href={'/login'}>Entrar</Link>
