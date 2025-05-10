@@ -57,26 +57,17 @@
     }
 
     .donate-container {
-        position: relative;
         flex-grow: 1;
         display: flex;
         justify-content: center;
         background-color: #222228;
 
         .main-content {
-            position: relative;
             padding: 1em;
             flex-grow: 1;
-            width: 100%;
-            max-width: 72rem;
             gap: 1.5em;
-            // display: grid;
-            // grid-template-columns: 3fr 4fr;
             display: flex;
-
-            .form-donate {
-                flex-grow: 1;
-            }
+            justify-content: center;
 
             .donate-table {
                 max-width: 55%;
@@ -187,9 +178,20 @@
                     }
 
                     .images-list {
+                        width: 100%;
+
                         .label-files {
                             display: flex;
                             position: relative;
+
+                            &.hidden {
+                                pointer-events: none;
+                                opacity: .5;
+
+                                .files-container {
+                                    border-color: #f00;
+                                }
+                            }
 
                             .files-container {
                                 padding: 2.5em;
@@ -211,6 +213,41 @@
                                 }
                             }
                         }
+
+                        .images-preview {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+                            width: 100%;
+                            gap: 1em;
+                            padding: 1em 0;
+
+                            .image-preview {
+                                position: relative;
+                                overflow: hidden;
+                                border-radius: .5em;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                aspect-ratio: 13 / 9;
+                                width: 100%;
+
+                                .shadow-img {
+                                    object-fit: cover;
+                                    scale: 1.1;
+                                    filter: blur(.4rem);
+                                }
+
+                                .img {
+                                    object-fit: contain;
+                                }
+
+                                > * {
+                                    position: absolute;
+                                    height: 100%;
+                                    width: 100%;
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -225,11 +262,22 @@
                     background-color: globals.$primary-color;
                     transition: background-color .2s;
 
+                    &.hidden {
+                        pointer-events: none;
+                        opacity: .5;
+                    }
+
                     &:hover {
                         background-color: lighten(globals.$primary-color, 5%);
                     }
                 }
             }
+        }
+
+        .error-msg {
+            color: red;
+            font-weight: bolder;
+            margin-inline: auto;
         }
     }
 }

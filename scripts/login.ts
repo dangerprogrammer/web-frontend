@@ -1,3 +1,4 @@
+import { Token, User } from "@/types";
 import { Dispatch, MouseEvent, SetStateAction } from "react";
 
 export async function loginUser(ev: MouseEvent, formContent: any, initialFormContent: any, setErrorMsg: Dispatch<SetStateAction<any>>) {
@@ -31,6 +32,23 @@ export async function loginUser(ev: MouseEvent, formContent: any, initialFormCon
             refresh_token: tokenRes.hashRefreshToken
         };
 
-        localStorage.setItem("token", JSON.stringify(token));
+        localStorage.setItem("auth", JSON.stringify(token));
     });
 };
+
+export async function verifyUserToken() {
+    const token = JSON.parse(localStorage.getItem("auth") as string) as Token;
+
+    if (!token) return !1;
+
+    const res = await fetch("http://localhost:3000/search-token", {
+        headers: {
+            'Authorization': `bearer ${token.access_token}`
+        }
+    });
+    const tokenRes: User = await res.json();
+
+    if (!tokenRes) return !1;
+
+    return tokenRes;
+}

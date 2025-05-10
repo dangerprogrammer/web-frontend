@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation';
 import { Dispatch, MouseEvent, SetStateAction } from "react";
 
 export async function submitUser(ev: MouseEvent, formContent: any, initialFormContent: any, setErrorMsg: Dispatch<SetStateAction<any>>) {
@@ -20,8 +20,6 @@ export async function submitUser(ev: MouseEvent, formContent: any, initialFormCo
 
     if (JSON.stringify(hasUser) != "{}") return setErrorMsg('Já existe um usuário com este e-mail!');
 
-    setErrorMsg(undefined);
-
     const createUserPayload = {
         name: formContent.name,
         email: formContent.email,
@@ -40,12 +38,11 @@ export async function submitUser(ev: MouseEvent, formContent: any, initialFormCo
     });
     const tokenRes = await res.json();
 
-    console.log(tokenRes);
     const token = {
         access_token: tokenRes.hash,
         refresh_token: tokenRes.hashRefreshToken
     };
-    localStorage.setItem("token", JSON.stringify(token));
+    localStorage.setItem("auth", JSON.stringify(token));
 
     redirect('/');
 }
