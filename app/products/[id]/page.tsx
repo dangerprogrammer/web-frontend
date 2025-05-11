@@ -7,6 +7,7 @@ import './page.scss';
 import { use, useEffect, useState } from "react";
 import CopyrightFooter from "@/components/copyright-footer/copy-footer";
 import ClipLoader from "react-spinners/ClipLoader";
+import { redirect } from "next/navigation";
 
 async function getProduct(id: string) {
     const res = await fetch(`http://localhost:3000/products/product?id=${id}`);
@@ -26,13 +27,12 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
             const loggedUser = await verifyUserToken();
 
             setLoggedUser(loggedUser);
+            if (!(loggedUser && loggedUser.id)) redirect('/login');
 
             const p = await getProduct(productId);
 
             setProduct(p);
             setLoad(!0);
-
-            console.log(p);
         })();
     }, []);
 
