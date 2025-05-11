@@ -1,6 +1,6 @@
 'use client';
 
-import { verifyUserToken } from "@/scripts";
+import { capitalize, verifyUserToken } from "@/scripts";
 import { Product, User } from "@/types";
 import Link from "next/link";
 import './page.scss';
@@ -55,19 +55,53 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 </ul>
             </article>
         </header>
-        {load ? (product ? <section className="product-container">
-            <div className="product-images">
-                <div className="images-product">
-                    <span className="thumbnail-image">
-                        <img src={`http://localhost:3000${product.images[productImage]}`}/>
-                    </span>
-                    {product.images
-                    .filter((img, i) => i > product.images.length - 4 - 1)
-                    .map((img, i) => <span className="product-image" key={i}>
-                        <img src={`http://localhost:3000${img}`} />
-                    </span>)}
+        {load ? (product ? <section className="main-content">
+            <section className="product-container">
+                <div className="product-images">
+                    <div className="images-product">
+                        <span className="thumbnail-image">
+                            <img src={`http://localhost:3000${product.images[productImage]}`} />
+                        </span>
+                        {product.images.length > 4 ? <>{product.images
+                            .filter((_, i) => i < 3)
+                            .map((img, i) => <span className={`product-image${i == productImage ? ' active' : ''}`}
+                                onClick={() => setProductImage(i)} key={i}>
+                                <img src={`http://localhost:3000${img}`} />
+                            </span>)}<span className="product-image click-more">
+                                <div className="shadow">+{product.images.length - 3}</div>
+                                <img src={`http://localhost:3000${product.images[3]}`} />
+                            </span></> : (product.images
+                                .filter((_, i) => i < 4)
+                                .map((img, i) => <span className={`product-image${i == productImage ? ' active' : ''}`}
+                                    onClick={() => setProductImage(i)} key={i}>
+                                    <img src={`http://localhost:3000${img}`} />
+                                </span>))}
+                    </div>
                 </div>
-            </div>
+                <div className="product-info">
+                    <h1 className="title-product">{product.name}</h1>
+                    <span className='line'></span>
+                    <div className="cards">
+                        <div className="card">
+                            <small className="title-card">Categoria</small>
+                            <p>{capitalize(product.category)}</p>
+                        </div>
+                        <div className="card">
+                            <small className="title-card">Condição</small>
+                            <p>{capitalize(product.condition)}</p>
+                        </div>
+                        <div className="card">
+                            <small className="title-card">Pontos</small>
+                            <p className="points-card">{product.points} pontos</p>
+                        </div>
+                    </div>
+                    <span className="col">
+                        <h3>Descrição Detalhada</h3>
+                        <p className="product-desc">{product.desc}</p>
+                    </span>
+                    <div className="card donator"></div>
+                </div>
+            </section>
         </section> : <section className="no-product">
             <h1 className="title">Produto não encontrado</h1>
         </section>) : <section className="loading">
