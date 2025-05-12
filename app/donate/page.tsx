@@ -19,7 +19,7 @@ const conditionPointsMultiplier = {
 export default function DonatePage() {
   const initialFormContent = {
     name: '',
-    estimatedPrice: '',
+    estimatedPrice: 0,
     category: '',
     condition: '',
     desc: '',

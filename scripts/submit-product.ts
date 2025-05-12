@@ -15,7 +15,6 @@ export async function submitProduct(ev: MouseEvent, formContent: any, initialFor
     formData.append('desc', formContent.desc);
     formData.append('category', formContent.category);
     formData.append('condition', formContent.condition);
-    formData.append('location', loggedUser.location);
     formData.append('estimatedPrice', formContent.estimatedPrice);
     formData.append('points', formContent.points);
 

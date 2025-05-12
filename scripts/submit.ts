@@ -15,7 +15,7 @@ export async function submitUser(ev: MouseEvent, formContent: any, initialFormCo
     if ((formHas('password') && formHas('confirmPassword')) &&
         formContent['password'] != formContent['confirmPassword']) return setErrorMsg('As senhas não coincidem!');
 
-    const userRes = await fetch(`http://localhost:3000/users?email=${formContent.email}`);
+    const userRes = await fetch(`http://localhost:3000/user?email=${formContent.email}`);
     const hasUser = await userRes.json();
 
     if (JSON.stringify(hasUser) != "{}") return setErrorMsg('Já existe um usuário com este e-mail!');
