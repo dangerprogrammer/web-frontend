@@ -58,9 +58,6 @@ export default function DonatePage() {
           <li className='link-header active'>
             <Link href={'/donate'}>Doar</Link>
           </li>
-          <li className='link-header'>
-            <Link href={'/score'}>Pontos</Link>
-          </li>
         </ul>
       </article>
     </header>
