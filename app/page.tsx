@@ -5,7 +5,12 @@ import './page.scss';
 import { useEffect, useState } from 'react';
 import { verifyUserToken } from '@/scripts';
 import { Product, User } from '@/types';
-import { IoSearch, IoArrowUpCircleOutline, IoArrowDownCircleOutline, IoTrophyOutline } from "react-icons/io5";
+import {
+  IoSearch,
+  IoArrowUpCircleOutline,
+  IoArrowDownCircleOutline,
+  IoTrophyOutline
+} from "react-icons/io5";
 import { ProductItem } from '@/components/product-item/item';
 import CopyrightFooter from '@/components/copyright-footer/copy-footer';
 
@@ -18,12 +23,17 @@ export default function Home() {
     (async () => {
       const loggedUser = await verifyUserToken();
 
-      setLoggedUser(loggedUser);
-
       const res = await fetch("http://localhost:3000/products");
       const resProducts = await res.json();
 
       setProducts(resProducts);
+
+      if (loggedUser && loggedUser.id) {
+        const resUser = await fetch(`http://localhost:3000/user-products?email=${loggedUser.email}`);
+        const user: User = await resUser.json();
+
+        setLoggedUser(user);
+      } else setLoggedUser(loggedUser);
     })();
   }, []);
 
@@ -59,7 +69,11 @@ export default function Home() {
     <article className='main-article'>
       <h1 className='title-article'>Itens Disponíveis para Doação</h1>
       <ul className='main-products'>
-        {products.map((product, i) => <ProductItem key={i} product={product} />)}
+        {products.map((product, i) => {
+          const hasProduct = loggedUser && loggedUser.id && loggedUser.interestedProducts.find(({ id }) => id == product.id);
+          
+          return <ProductItem key={i} product={product} updateUser={setLoggedUser} interested={!!hasProduct} />
+        })}
       </ul>
     </article>
     <article className="info-article">
@@ -82,6 +96,6 @@ export default function Home() {
         </section>
       </div>
     </article>
-    <CopyrightFooter/>
+    <CopyrightFooter />
   </main>
 }

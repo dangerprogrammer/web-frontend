@@ -1,39 +1,110 @@
+@use '../globals.scss';
+
 .profile-container {
-    padding: 3em;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.profile-header {
     display: flex;
-    align-items: center;
-    margin: 40px 0 30px;
+    flex-direction: column;
 
-    .profile-avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background-color: #3a3f47;
+    .profile-header {
+        position: sticky;
+        top: 0;
+        padding: 2em 1em;
+        width: 100%;
         display: flex;
-        align-items: center;
         justify-content: center;
-        font-size: 2rem;
-        color: #ee7410;
-        margin-right: 20px;
-        border: 3px solid #ee7410;
+        background-color: #15151a;
+        border-bottom: .12rem solid #333;
+        user-select: none;
+
+        .header-content {
+            max-width: 64rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.1em;
+
+            .header-title {
+                font-weight: 600;
+
+                .title-logo {
+                    color: globals.$primary-color;
+                    font-weight: 700;
+                }
+            }
+
+            .links-list {
+                display: flex;
+                align-items: center;
+
+                .product-search {
+                    display: flex;
+                    position: relative;
+                    margin-right: 1em;
+
+                    label {
+                        top: 50%;
+                        translate: 0 -40%;
+                        right: .5em;
+                        pointer-events: none;
+                        position: absolute;
+                        color: globals.$primary-color;
+                    }
+
+                    .search-product {
+                        font-family: inherit;
+                        outline: none !important;
+                        border-radius: .5em;
+                        padding: 1em;
+                        background-color: #222228;
+                        border: .05rem solid #eef3;
+                        transition: border-color .2s;
+                    }
+                }
+
+                .link-header {
+                    font-weight: 600;
+                    list-style: none;
+                    margin: .2em .75em;
+                    transition: color .2s;
+
+                    &:hover {
+                        color: globals.$primary-color;
+                    }
+                }
+            }
+        }
     }
 
-    .profile-info {
-        h2 {
-            color: #f3f4f6;
-            font-size: 1.8rem;
-            margin-bottom: 5px;
+    .profile-sec-header {
+        display: flex;
+        align-items: center;
+        margin: 40px 0 30px;
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #3a3f47;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: globals.$primary-color;
+            margin-right: 20px;
+            border: 3px solid globals.$primary-color;
         }
 
-        p {
-            color: #9ca3af;
-            font-size: 0.9rem;
+        .profile-info {
+            h2 {
+                color: #f3f4f6;
+                font-size: 1.8rem;
+                margin-bottom: 5px;
+            }
+
+            p {
+                color: #9ca3af;
+                font-size: 0.9rem;
+            }
         }
     }
 }

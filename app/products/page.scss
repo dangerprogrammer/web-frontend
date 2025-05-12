@@ -1,75 +1,75 @@
 @use '../globals.scss';
 
 .products-header {
-        position: sticky;
-        top: 0;
-        padding: 2em 1em;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        background-color: #15151a;
-        border-bottom: .12rem solid #333;
-        user-select: none;
+  position: sticky;
+  top: 0;
+  padding: 2em 1em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #15151a;
+  border-bottom: .12rem solid #333;
+  user-select: none;
 
-        .header-content {
-            max-width: 64rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 1.1em;
+  .header-content {
+    max-width: 64rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.1em;
 
-            .header-title {
-                font-weight: 600;
+    .header-title {
+      font-weight: 600;
 
-                .title-logo {
-                    color: globals.$primary-color;
-                    font-weight: 700;
-                }
-            }
-
-            .links-list {
-                display: flex;
-                align-items: center;
-
-                .product-search {
-                    display: flex;
-                    position: relative;
-                    margin-right: 1em;
-
-                    label {
-                        top: 50%;
-                        translate: 0 -40%;
-                        right: .5em;
-                        pointer-events: none;
-                        position: absolute;
-                        color: globals.$primary-color;
-                    }
-
-                    .search-product {
-                        font-family: inherit;
-                        outline: none !important;
-                        border-radius: .5em;
-                        padding: 1em;
-                        background-color: #222228;
-                        border: .05rem solid #eef3;
-                        transition: border-color .2s;
-                    }
-                }
-
-                .link-header {
-                    font-weight: 600;
-                    list-style: none;
-                    margin: .2em .75em;
-                    transition: color .2s;
-
-                    &:hover {
-                        color: globals.$primary-color;
-                    }
-                }
-            }
-        }
+      .title-logo {
+        color: globals.$primary-color;
+        font-weight: 700;
+      }
     }
+
+    .links-list {
+      display: flex;
+      align-items: center;
+
+      .product-search {
+        display: flex;
+        position: relative;
+        margin-right: 1em;
+
+        label {
+          top: 50%;
+          translate: 0 -40%;
+          right: .5em;
+          pointer-events: none;
+          position: absolute;
+          color: globals.$primary-color;
+        }
+
+        .search-product {
+          font-family: inherit;
+          outline: none !important;
+          border-radius: .5em;
+          padding: 1em;
+          background-color: #222228;
+          border: .05rem solid #eef3;
+          transition: border-color .2s;
+        }
+      }
+
+      .link-header {
+        font-weight: 600;
+        list-style: none;
+        margin: .2em .75em;
+        transition: color .2s;
+
+        &:hover {
+          color: globals.$primary-color;
+        }
+      }
+    }
+  }
+}
 
 .highlight {
   color: #ff6a00;
@@ -77,16 +77,16 @@
 
 .navbar {
   display: flex;
-  gap: 20px; 
+  gap: 20px;
   padding: 10px;
-  justify-content: flex-end; 
-  background-color: #2c2c2c; 
+  justify-content: flex-end;
+  background-color: #2c2c2c;
 }
 
 .navbar a {
   color: white;
   text-decoration: none;
-  padding: 10px 15px; 
+  padding: 10px 15px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
@@ -139,8 +139,8 @@
   border-radius: 10px;
 }
 
-.titulo-filtro{
-    color: #ff6a00;
+.titulo-filtro {
+  color: #ff6a00;
 }
 
 .filter-group {

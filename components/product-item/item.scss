@@ -9,43 +9,101 @@
     height: 100%;
     width: 100%;
     border-radius: 1em;
-    overflow: hidden;
-    cursor: pointer;
-    outline: 2px solid transparent;
-    transition: outline-color .2s;
-
-    &:hover {
-        outline-color: globals.$primary-color;
-
-        .image-container::before {
-            opacity: 1;
-        }
-    }
 
     .image-container {
+        border-radius: 1em;
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         aspect-ratio: 3 / 2;
-        overflow: hidden;
 
-        &::before {
-            content: 'Ver Produto';
+        &:hover {
+            .shadow-container {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .images::before {
+                opacity: 1;
+            }
+        }
+
+        &:not(&:hover) .shadow-container {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .shadow-redirect {
             position: absolute;
             height: 100%;
             width: 100%;
             top: 0;
             left: 0;
-            background-color: #0008;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2em;
-            font-weight: 700;
-            opacity: 0;
-            transition: opacity .2s;
+            z-index: 2;
+            cursor: pointer;
+            outline: 2px solid transparent;
+            transition: outline-color .2s;
+            border-radius: 1em;
+
+            &:hover {
+                outline-color: globals.$primary-color;
+            }
+        }
+
+        .images {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            border-radius: 1em;
+
+            &::before {
+                content: '';
+                pointer-events: none;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-color: #0006;
+                z-index: 10;
+                opacity: 0;
+                transition: opacity .2s;
+            }
+
+            .shadow-container {
+                position: absolute;
+                padding: .5em;
+                right: 0;
+                bottom: 0;
+                z-index: 10;
+                display: flex;
+                gap: .2em;
+                transition: opacity .2s;
+
+                .icon {
+                    font-size: 1.5em;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: .25em;
+                    border-radius: 1em;
+                    cursor: pointer;
+                    transition: background-color .2s;
+
+                    &:hover {
+                        background-color: #8887;
+                    }
+
+                    * {
+                        pointer-events: none;
+                    }
+                }
+            }
         }
 
         .product-image {

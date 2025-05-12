@@ -5,9 +5,10 @@ import './page.scss';
 import { User } from '@/types';
 import { verifyUserToken } from '@/scripts';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default function ProfilePage() {
-  const [loggedUser, setLoggedUser] = useState<false | User>(!1);
+  const [loggedUser, setLoggedUser] = useState<User>();
 
   useEffect(() => {
     (async () => {
@@ -18,109 +19,105 @@ export default function ProfilePage() {
       const res = await fetch(`http://localhost:3000/user-products?email=${loggedUser.email}`);
       const user = await res.json();
 
+      setLoggedUser(user);
       console.log(user);
     })();
   }, []);
 
-  const handleLogout = () => {
+  function handleLogout() {
     if (confirm('Tem certeza que deseja sair da sua conta?')) {
+      localStorage.removeItem("auth");
+
       alert('Você foi desconectado com sucesso.');
-      // Em uma aplicação real, redirecionaria para a página inicial
+      redirect("/");
     }
   };
 
   return (
     <main className="profile-container">
-      <div className="profile-header">
-        <div className="profile-avatar">M</div>
-        <div className="profile-info">
-          <h2>Maria Oliveira</h2>
-          <p>Membro desde Março/2023</p>
+      <header className='profile-header'>
+        <article className='header-content'>
+          <h1 className="header-title">Buscar produtos com a <span className='title-logo'>E-Eco</span></h1>
+          <ul className='links-list'>
+            <li className='link-header'>
+              <Link href={'/'}>Home</Link>
+            </li>
+            <li className='link-header'>
+              <Link href={'/donate'}>Doar</Link>
+            </li>
+          </ul>
+        </article>
+      </header>
+
+      {loggedUser ? <section className='profile-content'>
+        <div className="profile-sec-header">
+          <div className="profile-avatar">{loggedUser.name[0]}</div>
+          <div className="profile-info">
+            <h2>{loggedUser.name}</h2>
+            <p>Membro desde {new Date(loggedUser.joinedAt).toLocaleDateString()}</p>
+          </div>
         </div>
-      </div>
 
-      <div className="profile-sections">
-        {/* Dados Pessoais */}
-        <section className="profile-section personal-data">
-          <div className="section-header">
-            <div className="section-icon icon-user">👤</div>
-            <h3 className="section-title">Dados Pessoais</h3>
-          </div>
-          <p><strong>Nome:</strong> Maria Oliveira</p>
-          <p><strong>E-mail:</strong> maria.oliveira@exemplo.com</p>
-          <p><strong>Localização:</strong> São Paulo, SP</p>
-          <p><strong>Telefone:</strong> (11) 98765-4321</p>
-          <button className="edit-btn" onClick={() => handleEditProfile()}>Editar Perfil</button>
-        </section>
+        <div className="profile-sections">
+          {/* Dados Pessoais */}
+          <section className="profile-section personal-data">
+            <div className="section-header">
+              <div className="section-icon icon-user">👤</div>
+              <h3 className="section-title">Dados Pessoais</h3>
+            </div>
+            <p><strong>Nome:</strong> {loggedUser.name}</p>
+            <p><strong>E-mail:</strong> {loggedUser.email}</p>
+            <p><strong>Localização:</strong> {loggedUser.location}</p>
+            <p><strong>Telefone:</strong> {loggedUser.phone}</p>
+            <button className="edit-btn" onClick={() => handleEditProfile()}>Editar Perfil</button>
+          </section>
 
-        {/* Minhas Doações */}
-        <section className="profile-section">
-          <div className="section-header">
-            <div className="section-icon icon-donation">🎁</div>
-            <h3 className="section-title">Minhas Doações</h3>
-          </div>
-          <ul className="item-list">
-            <li className="item-card">
-              <h3>Placa Mãe ASUS H110M-K</h3>
-              <div className="item-meta">
-                <span>30 pontos</span>
-                <span className="item-status status-completed">Concluída</span>
-              </div>
-            </li>
-            <li className="item-card">
-              <h3>Monitor LED 24&quot;</h3>
-              <div className="item-meta">
-                <span>60 pontos</span>
-                <span className="item-status status-pending">Em andamento</span>
-              </div>
-            </li>
-            <li className="item-card">
-              <h3>Teclado Mecânico</h3>
-              <div className="item-meta">
-                <span>25 pontos</span>
-                <span className="item-status status-available">Disponível</span>
-              </div>
-            </li>
-          </ul>
-        </section>
+          {/* Minhas Doações */}
+          <section className="profile-section">
+            <div className="section-header">
+              <div className="section-icon icon-donation">🎁</div>
+              <h3 className="section-title">Minhas Doações</h3>
+            </div>
+            <ul className="item-list">
+              {loggedUser.ownerProducts.map((product, i) => <li key={i} className='item-card' onClick={() => redirect(`/products/${product.id}`)}>
+                <h3>{product.name}</h3>
+                <div className="item-meta">
+                  <span>{product.points} pontos</span>
+                </div>
+              </li>)}
+            </ul>
+          </section>
 
-        {/* Meus Interesses */}
-        <section className="profile-section">
-          <div className="section-header">
-            <div className="section-icon icon-interest">❤️</div>
-            <h3 className="section-title">Meus Interesses</h3>
-          </div>
-          <ul className="item-list">
-            <li className="item-card">
-              <h3>Notebook Dell i5</h3>
-              <div className="item-meta">
-                <span>80 pontos</span>
-                <span className="item-status status-pending">Aguardando</span>
-              </div>
-            </li>
-            <li className="item-card">
-              <h3>Smartphone Samsung S8</h3>
-              <div className="item-meta">
-                <span>60 pontos</span>
-                <span className="item-status status-available">Disponível</span>
-              </div>
-            </li>
-          </ul>
-        </section>
+          {/* Meus Interesses */}
+          <section className="profile-section">
+            <div className="section-header">
+              <div className="section-icon icon-interest">❤️</div>
+              <h3 className="section-title">Meus Interesses</h3>
+            </div>
+            <ul className="item-list">
+              {loggedUser.interestedProducts.map((product, i) => <li key={i} className='item-card' onClick={() => redirect(`/products/${product.id}`)}>
+                <h3>{product.name}</h3>
+                <div className="item-meta">
+                  <span>{product.points} pontos</span>
+                </div>
+              </li>)}
+            </ul>
+          </section>
 
-        {/* Saldo de Pontos */}
-        <section className="profile-section">
-          <div className="section-header">
-            <div className="section-icon icon-points">⭐</div>
-            <h3 className="section-title">Saldo de Pontos</h3>
-          </div>
-          <div className="points-balance">145 pts</div>
-          <div className="points-actions">
-            <button className="points-btn">Como ganhar mais</button>
-            <button className="points-btn">Resgatar pontos</button>
-          </div>
-        </section>
-      </div>
+          {/* Saldo de Pontos */}
+          <section className="profile-section">
+            <div className="section-header">
+              <div className="section-icon icon-points">⭐</div>
+              <h3 className="section-title">Saldo de Pontos</h3>
+            </div>
+            <div className="points-balance">{loggedUser.totalPoints} pts</div>
+            <div className="points-actions">
+              <button className="points-btn">Como ganhar mais</button>
+              <button className="points-btn">Resgatar pontos</button>
+            </div>
+          </section>
+        </div>
+      </section> : <h1>Carregando usuário...</h1>}
 
       {/* Botão Sair */}
       <div className="logout-section">
