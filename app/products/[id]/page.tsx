@@ -31,6 +31,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
             const p = await getProduct(productId);
 
+            console.log(p);
             setProduct(p);
             setLoad(!0);
         })();
@@ -99,7 +100,16 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                         <h3>Descrição Detalhada</h3>
                         <p className="product-desc">{product.desc}</p>
                     </span>
-                    <div className="card donator"></div>
+                    <div className="card donator">
+                        <div className="profile-sec-header">
+                            <div className="profile-avatar">{product.owner.name[0]}</div>
+                            <div className="profile-info">
+                                <h2>{product.owner.name}</h2>
+                                <p>Membro desde {new Date(product.owner.joinedAt).toLocaleDateString()}</p>
+                            </div>
+                            <div className="profile-products"><span className="products">{product.owner.ownerProducts.length}</span> Doações</div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </section> : <section className="no-product">

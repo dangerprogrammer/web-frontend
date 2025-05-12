@@ -221,6 +221,52 @@
                         padding: .2em .5em;
                         border-radius: .5em;
                     }
+
+                    .profile-sec-header {
+                        display: flex;
+                        gap: 1em;
+                        align-items: center;
+
+                        .profile-avatar {
+                            $size: 1.6em;
+                            width: $size;
+                            height: $size;
+                            border-radius: 50%;
+                            background-color: #3a3f47;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: $size;
+                            color: globals.$primary-color;
+                        }
+
+                        .profile-info {
+                            flex-grow: 1;
+
+                            h2 {
+                                color: #f3f4f6;
+                                font-size: 1rem;
+                            }
+
+                            p {
+                                color: #9ca3af;
+                                font-size: 0.8rem;
+                            }
+                        }
+
+                        .profile-products {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            font-size: .8em;
+
+                            .products {
+                                color: globals.$primary-color;
+                                font-size: 1.8em;
+                                font-weight: 700;
+                            }
+                        }
+                    }
                 }
 
                 .col {

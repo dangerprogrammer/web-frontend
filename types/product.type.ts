@@ -1,4 +1,4 @@
-import { Category, Condition } from ".";
+import { Category, Condition, User } from ".";
 
 export type Product = {
     id: number;
@@ -9,4 +9,5 @@ export type Product = {
     condition: Condition;
     location: string;
     points: number;
+    owner: User;
 };
