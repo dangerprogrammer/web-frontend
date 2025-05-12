@@ -69,12 +69,13 @@ export default function Home() {
     <article className='main-article'>
       <h1 className='title-article'>Itens Disponíveis para Doação</h1>
       <ul className='main-products'>
-        {products.map((product, i) => {
+        {products.filter((_, i) => i < 4).map((product, i) => {
           const hasProduct = loggedUser && loggedUser.id && loggedUser.interestedProducts.find(({ id }) => id == product.id);
           
           return <ProductItem key={i} product={product} updateUser={setLoggedUser} interested={!!hasProduct} />
         })}
       </ul>
+      <Link className='see-more' href={'/products'}>Ver todos os itens</Link>
     </article>
     <article className="info-article">
       <h1 className='title-article'>Sistema de Pontos</h1>
