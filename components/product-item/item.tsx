@@ -25,7 +25,7 @@ export function ProductItem({ product, updateUser, interested }: { product: Prod
                             updateUser(user);
                         })();
                     }}>{interested ? <IoHeart /> : <IoHeartOutline />}</span>
-                    <span className="icon"><IoSendOutline /></span>
+                    <span className="icon" onClick={() => navigator.clipboard.writeText(`${location.origin}/products/${product.id}`)}><IoSendOutline /></span>
                 </div>
                 <img className='product-image' src={`http://localhost:3000${product.images[0]}`} alt={`Produto ${product.name}`} referrerPolicy="no-referrer" />
                 <img className='product-image shadow' src={`http://localhost:3000${product.images[0]}`} alt={`Produto ${product.name}`} referrerPolicy="no-referrer" />
