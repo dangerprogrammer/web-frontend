@@ -147,7 +147,7 @@ export default function ProductsPage() {
             </div>
             <div className="product-list">
               {resultados.map((prod, index) => (
-                <div key={index} className="product-card">
+                <div key={index} className="product-card" onClick={() => redirect(`/products/${prod.id}`)}>
                   <h4>{prod.name}</h4>
                   <p>{prod.desc}</p>
                   <p className="location">{prod.location}</p>
